@@ -25,10 +25,10 @@ from typing import ContextManager, Optional, Union
 import mysql.connector
 
 from dbt import exceptions
-from dbt.adapters.base import Credentials
+from dbt.adapters.contracts.connection import Credentials
 from dbt.adapters.sql import SQLConnectionManager
-from dbt.contracts.connection import AdapterResponse, Connection, ConnectionState
-from dbt.events import AdapterLogger
+from dbt.adapters.contracts.connection import AdapterResponse, Connection
+from dbt.adapters.events.logging import AdapterLogger
 
 logger = AdapterLogger("doris")
 
