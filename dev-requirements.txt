@@ -20,4 +20,4 @@ pytz
 tox>=3.13
 twine
 wheel
-mysql-connector-python>=8.0.0,<8.1
+mysql-connector-python>=8.0.0
