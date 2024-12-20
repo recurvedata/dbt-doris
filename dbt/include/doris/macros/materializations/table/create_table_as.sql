@@ -27,7 +27,7 @@
     {{ doris__table_comment()}}
     {{ doris__partition_by() }}
     {{ doris__distributed_by() }}
-    {{ doris__properties() }} as {{ doris__table_colume_type(sql) }};
+    {{ doris__properties() }} as {{ sql }};
 
 {%- endmacro %}
 
@@ -40,7 +40,7 @@
     {{ doris__table_comment()}}
     {{ doris__partition_by() }}
     {{ doris__distributed_by() }}
-    {{ doris__properties() }} as {{ doris__table_colume_type(sql) }};
+    {{ doris__properties() }} as {{ sql }};
 
 {%- endmacro %}
 
