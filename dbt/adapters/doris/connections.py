@@ -22,6 +22,8 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import ContextManager, Optional, Union
 
+import dbt_common.exceptions
+
 import mysql.connector
 
 from dbt import exceptions
@@ -132,7 +134,7 @@ class DorisConnectionManager(SQLConnectionManager):
             yield
         except mysql.connector.DatabaseError as e:
             logger.debug(f"Doris database error: {e}, sql: {sql}")
-            raise exceptions.DbtDatabaseError(str(e)) from e
+            raise dbt_common.exceptions.DbtDatabaseError(str(e).strip()) from e
         except Exception as e:
             logger.debug(f"Error running SQL: {sql}")
             if isinstance(e, exceptions.DbtRuntimeError):
