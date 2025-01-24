@@ -38,7 +38,7 @@ from typing import (
 )
 
 import agate
-import dbt.exceptions
+from dbt_common import exceptions
 from dbt.adapters.base.impl import _expect_row_value, catch_as_completed
 from dbt.adapters.base.relation import InformationSchema, BaseRelation
 from dbt.adapters.doris.column import DorisColumn
@@ -123,7 +123,7 @@ class DorisAdapter(SQLAdapter):
         relations = []
         for row in results:
             if len(row) != 4:
-                raise dbt.exceptions.DbtRuntimeError(
+                raise exceptions.DbtRuntimeError(
                     f"Invalid value from 'show table extended ...', "
                     f"got {len(row)} values, expected 4"
                 )
@@ -188,7 +188,7 @@ class DorisAdapter(SQLAdapter):
             manifest: Manifest,
     ) -> agate.Table:
         if len(schemas) != 1:
-            dbt.exceptions.raise_compiler_error(
+            raise exceptions.DbtRuntimeError(
                 f"Expected only one schema in Doris _get_one_catalog, found " f"{schemas}"
             )
 
