@@ -49,5 +49,14 @@
   -- finally, drop the existing/backup relation after the commit
   {{ doris__drop_relation(intermediate_relation) }}
 
+  -- Execute post-hooks inside transaction
+  {{ run_hooks(post_hooks, inside_transaction=True) }}
+  
+  -- Commit the transaction
+  {% do adapter.commit() %}
+  
+  -- Execute post-hooks outside transaction
+  {{ run_hooks(post_hooks, inside_transaction=False) }}
+
   {{ return({'relations': [target_relation]}) }}
 {% endmaterialization %}
