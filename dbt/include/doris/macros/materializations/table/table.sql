@@ -25,6 +25,10 @@
   -- grab current tables grants config for comparision later on
   {% set grant_config = config.get('grants') %}
 
+  -- Execute pre-hooks before anything else
+  {{ run_hooks(pre_hooks, inside_transaction=False) }}
+  {{ run_hooks(pre_hooks, inside_transaction=True) }}
+
   -- drop the temp relations if they exist already in the database
   {{ doris__drop_relation(preexisting_intermediate_relation) }}
 
