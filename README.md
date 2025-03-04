@@ -9,6 +9,24 @@ dbt is the T in ELT. Organize, cleanse, denormalize, filter, rename, and pre-agg
 ## Apache Doris
 This repo contains the base code to help you start to build out your dbt-doris adapter plugin, for more information on how to build out the adapter please follow the [docs](https://docs.getdbt.com/docs/contributing/building-a-new-adapter)
 
+### Features
+
+#### Doris Unique Table Support
+This adapter supports creating Doris Unique Tables by specifying a `unique_key` configuration. When this configuration is provided, the materialization will create a Unique Table instead of a regular Duplicate Table.
+
+Example usage in a dbt model:
+
+```sql
+{{ config(
+    materialized='table',
+    unique_key=['id'],
+    distributed_by=['id'],
+    buckets=10
+) }}
+
+SELECT * FROM source_table
+```
+
 ** Note ** this `README` is meant to be replaced with what information would be required to use your adpater once your at a point todo so.
 
 ** Note **
