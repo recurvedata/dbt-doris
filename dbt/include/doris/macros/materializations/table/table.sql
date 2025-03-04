@@ -32,9 +32,16 @@
   -- drop the temp relations if they exist already in the database
   {{ doris__drop_relation(preexisting_intermediate_relation) }}
 
+  -- Check if this is a Unique Table by looking for unique_key config
+  {% set is_unique_table = config.get('unique_key', none) is not none %}
+
   -- build model
   {% call statement('main') -%}
-    {{ get_create_table_as_sql(False, intermediate_relation, sql) }}
+    {% if is_unique_table %}
+      {{ get_create_unique_table_as_sql(False, intermediate_relation, sql) }}
+    {% else %}
+      {{ get_create_table_as_sql(False, intermediate_relation, sql) }}
+    {% endif %}
   {%- endcall %}
 
   {% if existing_relation -%}
