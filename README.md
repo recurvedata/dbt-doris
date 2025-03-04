@@ -20,7 +20,6 @@ Example usage in a dbt model:
 {{ config(
     materialized='table',
     unique_key=['id'],
-    engine='OLAP',
     distributed_by=['id'],
     buckets=10
 ) }}
